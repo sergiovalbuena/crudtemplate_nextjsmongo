@@ -2,7 +2,7 @@ import Head from 'next/head'
 import clientPromise from '../lib/mongodb'
 import { InferGetServerSidePropsType } from 'next'
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: unknown) {
   try {
     await clientPromise
     // `await clientPromise` will use the default database passed in the MONGODB_URI
@@ -37,7 +37,7 @@ export default function Home({
 
       <main>
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js with MongoDB!</a>
+          Welcome to <a href="https://nextjs.org"> CRUD !</a> Next.js with MongoDB
         </h1>
 
         {isConnected ? (
