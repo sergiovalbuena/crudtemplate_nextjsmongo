@@ -11,7 +11,7 @@ export default function AddPost() {
         e.preventDefault();
         if (title && content) {
             try {
-                const response = await fetch('https://crudtemplate-nextjsmongo.vercel.app/api/addPost', {
+                const response = await fetch('/api/addPost', {
                     method: 'POST',
                     body: JSON.stringify({
                         title,

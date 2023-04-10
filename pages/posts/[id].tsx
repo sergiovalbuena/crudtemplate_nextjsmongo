@@ -7,6 +7,7 @@ import type {
 import Layout from '../../components/Layout';
 
 
+
 //Define the types sending updated values:
 type PageParams = {
   id: string
@@ -32,11 +33,9 @@ type ContentPageProps = {
 export async function getStaticProps({
   params
 }: GetStaticPropsContext<PageParams>): Promise<GetStaticPropsResult<ContentPageProps>> {
-  try {
+  try {     
+    let response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getPost?id=${params?.id}`);
 
- 
-      
-    let response = await fetch('https://crudtemplate-nextjsmongo.vercel.app/api/getPost?id=' + params?.id);
 
     let responseFromServer: ResponseFromServer = await response.json();
 
@@ -66,7 +65,7 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  let posts = await fetch('https://crudtemplate-nextjsmongo.vercel.app/api/getPosts');
+  let posts = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getPosts`);
 
   let postFromServer: [Post] = await posts.json();
   return {
@@ -93,7 +92,7 @@ export default function EditPost({ post: { _id, title, content } }: InferGetStat
     e.preventDefault();
     if (postTitle && postContent) {
       try {
-        let response = await fetch('https://crudtemplate-nextjsmongo.vercel.app/api/editPost?id=' + _id, {
+        let response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/editPost?id=${_id}`, {
           method: 'POST',
           body: JSON.stringify({
             title: postTitle,
